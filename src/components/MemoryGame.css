@@ -1,0 +1,21 @@
+.memoryGame{
+    max-width: 70%;
+    margin-left: 15%;
+    color: white;
+}
+
+.memoryGame button{
+    background: black;
+    border: 1px solid white;
+    border-radius: 5px;
+    color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+    transition: 0.5s;
+    margin-top: 10px;
+}
+
+.memoryGame button:hover{
+    background: rgb(181, 193, 230);
+    color: black;
+}
