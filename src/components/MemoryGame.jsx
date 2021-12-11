@@ -10,6 +10,7 @@ class MemoryGame extends Component {
     time: null,
     turns: null,
     message: "",
+    visibility: "hidden",
   };
 
   initialData = [
@@ -80,7 +81,11 @@ class MemoryGame extends Component {
   }
 
   componentDidUpdate() {
-    if (this.firstCard && this.secondCard && this.firstCard.id !== this.secondCard.id){
+    if (
+      this.firstCard &&
+      this.secondCard &&
+      this.firstCard.id !== this.secondCard.id
+    ) {
       this.disable = true;
       if (this.firstCard.img === this.secondCard.img) {
         this.numOfMatchingPairs++;
@@ -89,15 +94,16 @@ class MemoryGame extends Component {
             card.isMatched = true;
           }
         });
-        this.movesHadler();
+        this.movesHandler();
         if (this.isGameOver()) {
           clearInterval(this.setIntervalId);
           this.setState({ message: "Congratulations!" });
           this.saveTime();
         }
-      }
-      else {
-        setTimeout(() => this.movesHadler(), 1000);
+      } else {
+        setTimeout(() => {
+          this.movesHandler();
+        }, 1000);
       }
     }
   }
@@ -120,13 +126,14 @@ class MemoryGame extends Component {
     );
   };
 
-  movesHadler = () => {
+  movesHandler = () => {
     this.firstCard = null;
     this.secondCard = null;
     this.disable = false;
-    this.setState({
+    this.setState((state) => ({
+      ...state,
       turns: this.state.turns + 1,
-    });
+    }));
   };
 
   isGameOver = () => this.numOfMatchingPairs === this.numOfPairs;
@@ -136,8 +143,15 @@ class MemoryGame extends Component {
       <div className="memoryGame">
         <h1>Memory Game</h1>
         <button onClick={() => window.location.reload()}>New Game</button>
-        <br/>
-        <button onClick={this.getTimeHistory}>Get Time History</button>
+        <br />
+        <button
+          onClick={() => {
+            this.setState({ visibility: "visible" });
+            this.getTimeHistory();
+          }}
+        >
+          Get Time History
+        </button>
         <Message
           time={this.state.time}
           moves={this.state.turns}
@@ -149,7 +163,10 @@ class MemoryGame extends Component {
           firstCard={this.firstCard}
           secondCard={this.secondCard}
         />
-        <History timeHistory={this.timeResultArray} />
+        <History
+          visibility={this.state.visibility}
+          timeHistory={this.timeResultArray}
+        />
       </div>
     );
   }

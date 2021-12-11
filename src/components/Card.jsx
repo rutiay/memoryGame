@@ -1,17 +1,17 @@
 import "./Card.css";
 
-function Card({ card, playerTurn, turnCard }) {
+function Card({ card, playerTurn, turnCard, removecard }) {
   return (
     <div className="cards">
-      <div className={turnCard ? "flip" : ''}>
-        <img
-          src="/img/cover.jpg"
-          className="cover"
-          alt=""
-          onClick={() => playerTurn(card)}
-        />
-        <img src={card.img} alt="" className="front-img" />
-      </div>
+      <div className={turnCard ? "flip" : ""}>
+          <img
+            src="/img/cover.jpg"
+            className="cover"
+            alt=""
+            onClick={() => playerTurn(card)}
+          />
+          <img src={card.img} alt="" className="front-img" />
+        </div>
     </div>
   );
 }

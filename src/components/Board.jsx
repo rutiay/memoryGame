@@ -1,6 +1,5 @@
-import { Component } from "react";
-import "./Board.css";
 import Card from "./Card";
+import "./Board.css";
 
 function Board({ board, playerTurn, firstCard, secondCard}) {
   return (
